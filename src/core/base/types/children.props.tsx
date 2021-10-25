@@ -1,3 +1,3 @@
 import React from 'react';
 
-export type ChildrenPropsType = { children: React.ReactNode | string };
+export type ChildrenProps = { children: React.ReactNode | string };

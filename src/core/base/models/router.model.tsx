@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 export interface SingleRoute<T = any> {
 	path: string;
-	component: any;
+	component: FC;
 }
 
 export interface MainRoutes {

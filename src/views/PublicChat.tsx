@@ -1,5 +1,5 @@
 import React from 'react';
 
-const Chat = () => <div></div>;
+const PublicChat = () => <div>Public Chat</div>;
 
-export default Chat;
+export default PublicChat;

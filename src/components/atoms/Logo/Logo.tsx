@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { ReactComponent as SvgLogo } from 'assets/icons/logo.svg';
-import { SvgIcon } from '@mui/material';
+import { Wrapper } from './Logo.styles';
 
-const Logo = () => (
-  <div>
-    <SvgLogo />
-    <SvgIcon></SvgIcon>
-  </div>
+const Logo = (): ReactElement => (
+	<Wrapper>
+		<SvgLogo />
+	</Wrapper>
 );
 
 export default Logo;
