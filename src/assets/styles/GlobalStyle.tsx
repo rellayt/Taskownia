@@ -1,5 +1,6 @@
 // import { fade } from '../../components/templates/Backdrop/Backdrop';
 import { createGlobalStyle } from 'styled-components';
+import { background, fontSize } from './utility';
 
 export const GlobalStyle = createGlobalStyle`
 
@@ -16,8 +17,8 @@ export const GlobalStyle = createGlobalStyle`
     height: 100%;
     width: 100%;
     font-family: 'Source Sans Pro', sans-serif;
-    background: ${({ theme: { colors } }) => colors.background};
-    font-size: ${({ theme: { fontSizes } }) => fontSizes.m};
+		${background('background')};
+		${fontSize('m')};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }

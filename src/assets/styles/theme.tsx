@@ -2,7 +2,7 @@ import { DefaultTheme } from 'styled-components';
 
 export const colors = {
 	white: '#f7f7f7',
-	black: '#202020',
+	black: '#212121',
 	background: '#f3f3fa',
 	blue: '#0163b8',
 	darkBlue: '#00539c',
@@ -12,7 +12,7 @@ export const colors = {
 	lightYellow: '#ffd78b',
 	gray: '#cacaca',
 	darkGray: '#919191',
-	error: '#d43535',
+	error: '#d55c5c',
 	facebook: '#1877f2',
 	twitter: '#00ACEE',
 	inputFill: 'rgba(255,255,255,0.3)',

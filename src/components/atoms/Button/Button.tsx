@@ -7,6 +7,8 @@ import { isNotUndefined } from 'core/base/utility/isNotUndefined';
 import { asNonUndefined } from 'core/base/utility/asNonUndefined';
 import { ButtonStyledProps, Wrapper } from './Button.styles';
 import { Button as MaterialButton } from '@mui/material';
+import { isTrueValue } from '../../../core/base/utility/isTrueValue';
+import Spinner from '../Spinner/Spinner';
 
 interface ButtonProps extends ChildrenProps, ButtonStyledProps {
 	disabled?: Optional<boolean>;
@@ -14,7 +16,7 @@ interface ButtonProps extends ChildrenProps, ButtonStyledProps {
 	onClick: MouseEventHandler;
 }
 
-const Button = ({ fullWidth, rounded, color, disabled, navigateTo, onClick, children }: ButtonProps): ReactElement => {
+const Button = ({ fullWidth, rounded, processing, color, disabled, navigateTo, onClick, children }: ButtonProps): ReactElement => {
 	const router = useRouter();
 	const handleButtonClick = (event: MouseEvent) => {
 		onClick(event);
@@ -26,7 +28,7 @@ const Button = ({ fullWidth, rounded, color, disabled, navigateTo, onClick, chil
 	return (
 		<Wrapper fullWidth={fullWidth} rounded={rounded} color={color}>
 			<MaterialButton onClick={handleButtonClick} disabled={disabled}>
-				{children}
+				{isTrueValue(processing) ? <Spinner /> : children}
 			</MaterialButton>
 		</Wrapper>
 	);
