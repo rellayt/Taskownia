@@ -1,12 +1,18 @@
 import styled from 'styled-components';
-import { CircularProgress } from '@mui/material';
 import { flexAlignCenter } from '../../../assets/styles/utility';
+import { Key } from '../../../core/base/types/key.type';
+import { selectiveBasicColors } from '../../../assets/styles/theme';
 
-export const Wrapper = styled.div`
+export interface SpinnerStyledProps {
+	color?: Key<typeof selectiveBasicColors>;
+}
+export const Wrapper = styled.div<SpinnerStyledProps>`
 	${flexAlignCenter};
-`;
-
-export const MaterialSpinner = styled(CircularProgress)`
-	padding: 5px;
-	ju
+	.MuiCircularProgress-root {
+		color: ${({ color = 'blue' }) => selectiveBasicColors[color].inverted};
+		padding: 5px;
+		margin: 0;
+		width: 38px !important;
+		height: 38px !important;
+	}
 `;

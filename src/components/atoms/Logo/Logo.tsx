@@ -1,10 +1,14 @@
-import React, { ReactElement } from 'react';
+import React, { MouseEventHandler, ReactElement } from 'react';
 import { ReactComponent as SvgLogo } from 'assets/icons/logo.svg';
 import { Wrapper } from './Logo.styles';
 
-const Logo = (): ReactElement => (
+interface LogoProps {
+	onClick: MouseEventHandler<SVGSVGElement>;
+}
+
+const Logo = ({ onClick }: LogoProps): ReactElement => (
 	<Wrapper>
-		<SvgLogo />
+		<SvgLogo onClick={onClick} />
 	</Wrapper>
 );
 

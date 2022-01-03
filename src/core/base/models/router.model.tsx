@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 export interface SingleRoute<T = any> {
 	path: string;

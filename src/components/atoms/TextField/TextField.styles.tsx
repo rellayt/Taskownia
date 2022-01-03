@@ -1,43 +1,55 @@
 import styled, { css } from 'styled-components';
 import { TextField } from '@mui/material';
-import { background, color, fontSize } from '../../../assets/styles/utility';
+import { selectBackground, selectColor, selectFontSize } from '../../../assets/styles/utility';
 
 const borderRadius = css`
 	border-radius: 6px 6px 0 0;
 `;
 
 export const Wrapper = styled(TextField)`
+	height: 75px;
+
 	.MuiFilledInput-root {
 		${borderRadius};
+		${selectFontSize('m')}
+
+		.MuiSvgIcon-root:first-child:not(:last-child) {
+			position: relative !important;
+			top: 9px !important;
+			margin-right: 12px !important;
+			opacity: 0.7 !important;
+		}
 	}
 
-	.css-cio0x1-MuiInputBase-root-MuiFilledInput-root:after {
-		border-bottom: 2px solid ${({ theme: { colors } }) => colors.darkBlue};
+	.MuiFilledInput-root:after {
+		border-bottom: 2px solid ${({ theme: { colors } }) => colors.blue};
 	}
-	.css-cio0x1-MuiInputBase-root-MuiFilledInput-root.Mui-error:after {
+
+	.MuiFilledInput-root.Mui-error:after {
 		border-bottom: 2px solid ${({ theme: { colors } }) => colors.error};
 	}
 
-	.css-au3a9q-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
-		${color('darkBlue')}
+	.MuiInputLabel-root.Mui-focused {
+		${selectColor('blue')}
 	}
 
-	.css-e4w4as-MuiFormLabel-root-MuiInputLabel-root {
-		${fontSize('xm')};
-	}
-	.css-au3a9q-MuiFormLabel-root-MuiInputLabel-root.Mui-error {
-		${color('error')}
+	.MuiInputLabel-root {
+		${selectFontSize('xm')};
 	}
 
-	.css-10botns-MuiInputBase-input-MuiFilledInput-input {
-		${fontSize('xm')};
-		${background('inputFill')}
-		box-shadow: inset 0 0 4px 0 rgb(181 191 199 / 32%);
+	.MuiInputLabel-root.Mui-error {
+		${selectColor('error')}
+	}
+
+	.MuiFilledInput-root {
+		${selectFontSize('xm')};
+		box-shadow: inset 0 0 4px 0 rgb(181 191 199 / 55%);
 		${borderRadius};
 	}
-	.css-1wc848c-MuiFormHelperText-root.Mui-error {
-		${color('error')}
-		${fontSize('s')};
+
+	.MuiFormHelperText-root.Mui-error {
+		${selectColor('error')}
+		${selectFontSize('s')};
 		margin-left: 4px;
 	}
 `;

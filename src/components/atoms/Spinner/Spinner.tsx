@@ -1,15 +1,9 @@
 import { ReactElement } from 'react';
-import { MaterialSpinner, Wrapper } from './Spinner.styles';
-import { Optional } from '../../../core/base/types/optional.type';
-import { Key } from '../../../core/base/types/key.type';
-import { selectiveColors } from '../../../assets/styles/theme';
+import { SpinnerStyledProps, Wrapper } from './Spinner.styles';
+import { CircularProgress as MaterialSpinner } from '@mui/material';
 
-interface SpinnerProps {
-	color?: Optional<Key<typeof selectiveColors>>;
-}
-
-const Spinner = (): ReactElement => (
-	<Wrapper>
+const Spinner = ({ color }: SpinnerStyledProps): ReactElement => (
+	<Wrapper color={color}>
 		<MaterialSpinner />
 	</Wrapper>
 );

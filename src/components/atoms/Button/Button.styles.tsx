@@ -1,39 +1,37 @@
 import styled from 'styled-components';
-import { Optional } from 'core/base/types/optional.type';
-import { selectiveColors } from 'assets/styles/theme';
+import { selectiveBasicColors } from 'assets/styles/theme';
 import { Key } from 'core/base/types/key.type';
-import { isUndefined } from 'core/base/utility/isUndefined';
-import { asNonUndefined } from 'core/base/utility/asNonUndefined';
-import { background, color as selectColor, flexJustifyCenter } from '../../../assets/styles/utility';
+import { EASE_OUT_BACK, flexJustifyCenter, selectBackground, selectColor, selectFontSize } from '../../../assets/styles/utility';
+import { isFalseValue } from '../../../core/base/utility/isFalseValue';
 
 export interface ButtonStyledProps {
-	fullWidth?: Optional<boolean>;
-	rounded?: Optional<boolean>;
-	processing?: Optional<boolean>;
-	color?: Optional<Key<typeof selectiveColors>>;
+	fullWidth?: boolean;
+	rounded?: boolean;
+	processing?: boolean;
+	color?: Key<typeof selectiveBasicColors>;
 }
 
 export const Wrapper = styled.div<ButtonStyledProps>`
 	width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
 
 	.MuiButton-root {
-		background: ${({ color }) => (isUndefined(color) ? selectiveColors.blue.normal : selectiveColors[asNonUndefined(color)].normal)};
+		background: ${({ color = 'blue' }) => selectiveBasicColors[color].normal};
 		text-transform: none;
-		font-size: ${({ theme: { fontSizes } }) => fontSizes.m};
+		${selectFontSize('m')};
 		padding: 4px 18px;
 		font-weight: 700;
-		${({ color }) => selectColor(isUndefined(color) ? 'white' : 'black')};
-		transition: cubic-bezier(0.4, 0.07, 0.43, 1.01) all 325ms;
-		box-shadow: 0 1px 2px -1px ${({ theme: { colors } }) => colors.darkGray};
-		border-radius: ${({ rounded }) => (rounded ? '25px' : '6px')};
+		color: ${({ color = 'blue' }) => selectiveBasicColors[color].inverted};
+		transition: 270ms all ${EASE_OUT_BACK};
+		box-shadow: 0 5px 20px -10px ${({ theme: { colors } }) => colors.gray}, inset 0 0px 10px -5px ${({ theme: { colors } }) => colors.gray};
+		border-radius: ${({ rounded }) => (rounded ? '25px' : '8px')};
 		width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
 
 		&:hover {
-			background: ${({ color }) => (isUndefined(color) ? selectiveColors.blue.dark : selectiveColors[asNonUndefined(color)].dark)};
+			background: ${({ color }) => selectiveBasicColors[color || 'blue'].dark};
 		}
 
 		&:focus {
-			background: ${({ color }) => (isUndefined(color) ? selectiveColors.blue.light : selectiveColors[asNonUndefined(color)].light)};
+			background: ${({ color }) => selectiveBasicColors[color || 'blue'].light};
 		}
 
 		&:disabled div {
@@ -41,12 +39,13 @@ export const Wrapper = styled.div<ButtonStyledProps>`
 		}
 
 		&:disabled {
-			${background('error')};
+			background: ${({ processing, color, theme: { colors } }) =>
+				isFalseValue(processing) ? colors.error : selectiveBasicColors[color || 'blue'].normal};
 			${selectColor('white')};
 		}
 
 		.MuiButton-root:hover.Mui-disabled {
-			${background('error')};
+			${selectBackground('error')};
 		}
 	}
 `;

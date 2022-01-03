@@ -1,58 +1,31 @@
-import React, { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
-import { useError } from 'hooks/useError';
+import { authFacade as facade, AuthFacade } from '../core/store/facades/auth.facade';
+import { useObservable } from '@mindspace-io/react';
+import { Optional } from '../core/base/types/optional.type';
+import { User } from '../models/User.model';
+import { Nullable } from '../core/base/types/nullable.type';
 
-const AuthContext = React.createContext({});
-
-export const AuthProvider = ({ children }: any) => {
-	const [user, setUser] = useState(null);
-	const { dispatchError }: any = useError();
-
-	useEffect(() => {
-		const token = localStorage.getItem('token');
-		if (token) {
-			(async () => {
-				try {
-					const response: any = await axios.get('/me', {
-						headers: {
-							authorization: `Bearer ${token}`,
-						},
-					});
-					setUser(response.data);
-				} catch (e) {
-					console.log(e);
-				}
-			})();
-		}
-	}, []);
-
-	const signIn = async ({ login, password }: any) => {
-		try {
-			const response: any = await axios.post('/login', {
-				login,
-				password,
-			});
-			setUser(response.data);
-			localStorage.setItem('token', response.data.token);
-		} catch (e) {
-			dispatchError('Invalid email or password');
-		}
-	};
-
-	const signOut = () => {
-		setUser(null);
-		localStorage.removeItem('token');
-	};
-
-	return <AuthContext.Provider value={{ user, signIn, signOut }}>{children}</AuthContext.Provider>;
+export type AuthHook = {
+	isAuthenticated: Optional<boolean>;
+	isProcessing: Optional<boolean>;
+	isError: Optional<boolean>;
+	isPageLoading: Optional<boolean>;
+	user: Optional<User>;
+	isAuthor: Optional<Nullable<boolean>>;
+	facade: AuthFacade;
 };
 
-export const useAuth = () => {
-	const auth = useContext(AuthContext);
+export const useAuth = (): AuthHook => {
+	const [isProcessing] = useObservable<boolean>(facade.isProcessing$, false);
 
-	if (!auth) {
-		throw Error('useAuth needs to be used inside AuthContext');
-	}
+	const [isAuthenticated] = useObservable<boolean>(facade.isAuthenticated$, false);
 
-	return auth;
+	const [isPageLoading] = useObservable<boolean>(facade.isPageLoading$, true);
+
+	const [user] = useObservable<User>(facade.user$);
+
+	const [isAuthor] = useObservable<Nullable<boolean>>(facade.isAuthor$);
+
+	const [isError] = useObservable<boolean>(facade.error$, false);
+
+	return { isAuthenticated, isProcessing, isAuthor, isPageLoading, user, isError, facade };
 };

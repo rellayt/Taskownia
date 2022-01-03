@@ -1,15 +1,7 @@
-import { ReactElement, ReactNode } from 'react';
-import { ChildrenProps } from 'core/base/types/children.props';
+import { ReactElement } from 'react';
 import { Wrapper } from './TextField.styles';
+import { DictionaryReactNodeProps } from '../../../core/base/types/dictionary-react-node.props';
 
-interface TextFieldProps extends ChildrenProps {
-	[property: string]: ReactNode;
-}
-
-const TextField = ({ children, ...props }: TextFieldProps): ReactElement => (
-	<Wrapper variant="filled" {...props}>
-		{children}
-	</Wrapper>
+export const TextField = ({ ...props }: DictionaryReactNodeProps): ReactElement => (
+	<Wrapper autoComplete="off" variant="filled" {...props} />
 );
-
-export default TextField;
